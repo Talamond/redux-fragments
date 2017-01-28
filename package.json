@@ -1,0 +1,59 @@
+{
+  "name": "redux-fragments",
+  "description": "A methodalogy for setting up for react/redux code for optimum usability.",
+  "version": "0.0.1",
+  "author": "Jonathan Sweetman <sweetmanjon@gmail.com>",
+  "keywords": [
+    "react",
+    "redux",
+    "es6",
+    "babel",
+    "webpack",
+    "architecture"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Talamond/redux-fragments.git"
+  },
+  "bugs": "https://github.com/Talamond/redux-fragments/issues",
+  "scripts": {
+    "clean:build": "rimraf build",
+    "prestart": "npm run clean:build",
+    "start": "webpack-dashboard -c cyan -- node server.js",
+    "prebuild": "npm run clean:build",
+    "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.production.js --progress",
+    "test": "karma start --single-run --no-auto-watch karma.config.js"
+  },
+  "devDependencies": {
+    "add-asset-html-webpack-plugin": "1.0.2",
+    "babel-cli": "6.14.0",
+    "babel-core": "6.14.0",
+    "babel-eslint": "6.1.2",
+    "babel-loader": "6.2.5",
+    "chai": "3.5.0",
+    "chai-jquery": "2.0.0",
+    "cheerio": "0.22.0",
+    "colors": "1.1.2",
+    "cross-env": "2.0.1",
+    "http-server": "0.9.0",
+    "jsdom": "9.4.5",
+    "mocha": "3.0.2",
+    "rimraf": "2.5.4",
+    "webpack": "2.1.0-beta.21",
+    "webpack-dashboard": "0.1.8",
+    "webpack-dev-middleware": "1.6.1",
+    "webpack-hot-middleware": "2.12.2",
+    "webpack-merge": "0.14.1",
+    "babel-istanbul": "^0.6.0",
+    "babel-istanbul-loader": "0.0.1",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-preset-es2015": "^6.3.13",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.19",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-coverage": "^0.5.3",
+    "karma-jasmine": "^0.3.6",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.7.0"
+  }
+}
