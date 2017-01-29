@@ -52,3 +52,5 @@ const executeFragmentHandlers = (state, returnState, action, handlers, fragments
     });
     return returnState;
 };
+
+export const addFragmentsToHandlers = () => {};
