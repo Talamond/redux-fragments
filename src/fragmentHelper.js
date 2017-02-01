@@ -53,4 +53,15 @@ const executeFragmentHandlers = (state, returnState, action, handlers, fragments
     return returnState;
 };
 
-export const addFragmentsToHandlers = () => {};
+export const combineFragmentsHandlers = (handlers, fragments) => {
+  handlers.fragments = {};
+  _.forIn(fragments, (v, k) => {
+    if (!v.handlers) throw 'Fragment must have handlers or at least an empty object';
+
+  });
+  for (let fragment in fragments) {
+    if (!fragments[fragment].handlers) throw 'Fragment must have handlers';
+    handlers.fragments[fragment] = fragments[fragment].handlers;
+  }
+  return handlers;
+};

@@ -34,7 +34,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js?$/,
-        include: path.resolve(__dirname, './src'),
+        include: [path.resolve(__dirname, './src'), path.resolve(__dirname, './tests/sampleFragments')],
         exclude: path.resolve(__dirname, './tests'),
         loader: 'babel'
       }

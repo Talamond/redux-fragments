@@ -1,7 +1,7 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
-const config = require('./webpack.config.test.js');
+const config = require('./webpack.config.base.js');
 
 const GLOBALS = {
   'process.env': {
