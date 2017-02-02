@@ -28,7 +28,7 @@ export function attachState(state, fragmentMap) {
  */
 export function executeHandlers(state, action, handlers, fragments) {
     if (!action.type) throw 'Action must have type';
-    return executeFragmentHandlers(state, action, handlers, fragments);
+    return executeFragmentHandlers(state, {}, action, handlers, fragments);
 };
 
 // TODO copy param
@@ -42,8 +42,8 @@ function executeFragmentHandlers(state, returnState, action, handlers, fragments
     // Now check all fragments recursively for matches
     _.forIn(fragments, (v, k) => {
         if (!v.handlers) throw 'Fragment ' + k + ' must have handlers';
-        const subState = _.cloneDeep(state.fragments[k]);
-        const newSubState = executeFragmentHandlers(subState, null, action, state.fragments[k].fragments);
+        const subState = _.cloneDeep(v.state);
+        const newSubState = executeFragmentHandlers(subState, subState, action, v.handlers, state.fragments[k].fragments);
         if (newSubState) {
             const newState = _.cloneDeep(state);
             newState.fragments[k] = newSubState;
