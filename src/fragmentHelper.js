@@ -28,40 +28,37 @@ export function attachState(state, fragmentMap) {
  */
 export function executeHandlers(state, action, handlers, fragments) {
     if (!action.type) throw 'Action must have type';
-    return executeFragmentHandlers(state, {}, action, handlers, fragments);
+    return executeFragmentHandlers(state, state, action, combineFragmentsHandlers(handlers, fragments));
 };
 
 // TODO copy param
 // TODO overwrite param
 // TODO there's too many clones here
-function executeFragmentHandlers(state, returnState, action, handlers, fragments) {
+function executeFragmentHandlers(state, returnState, action, handlers) {
     // First check non-fragment handlers for a match.
     if (handlers[action.type]) {
-        return handlers[action.type](_.cloneDeep(state), action.payload);
+        return handlers[action.type](state, action.payload);
     }
     // Now check all fragments recursively for matches
-    _.forIn(fragments, (v, k) => {
-        if (!v.handlers) throw 'Fragment ' + k + ' must have handlers';
-        const subState = _.cloneDeep(v.state);
-        const newSubState = executeFragmentHandlers(subState, subState, action, v.handlers, state.fragments[k].fragments);
+    for (let fragment in handlers.fragments) {
+        if (!handlers.fragments[fragment]) throw 'Fragment must have handlers';
+        const newSubState = executeFragmentHandlers(state.fragments[fragment], null, action, handlers.fragments[fragment]);
         if (newSubState) {
-            const newState = _.cloneDeep(state);
-            newState.fragments[k] = newSubState;
+            const newState = {...state};
+            newState.fragments[fragment] = newSubState;
             returnState = newState;
         }
-    });
+    }
     return returnState;
 };
 
 export function combineFragmentsHandlers(handlers, fragments) {
-  handlers.fragments = {};
-  _.forIn(fragments, (v, k) => {
-    if (!v.handlers) throw 'Fragment must have handlers or at least an empty object';
-
-  });
+  if (handlers.fragments) throw 'Cannot have a handler named fragments';
+  const combinedHandlers = {...handlers};
+  combinedHandlers.fragments = {};
   for (let fragment in fragments) {
     if (!fragments[fragment].handlers) throw 'Fragment must have handlers';
-    handlers.fragments[fragment] = fragments[fragment].handlers;
+    combinedHandlers.fragments[fragment] = fragments[fragment].handlers;
   }
-  return handlers;
+  return combinedHandlers;
 };
