@@ -5,7 +5,7 @@ const webpack = require('webpack');
 
 module.exports = {
   output: {
-    filename: 'fragmentHelper.js.js',
+    filename: 'fragmentHelper.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
@@ -19,7 +19,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         include: path.resolve(__dirname, 'src'),
         loader: 'babel'
       }

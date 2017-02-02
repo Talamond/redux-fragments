@@ -5,7 +5,7 @@ import _ from 'lodash';
  * that is the combination of them both. Using this state will allow you to use
  * runHandlers function. initState may not have a member named fragments.
  */
-export const attachState = (state, fragmentMap) => {
+export function attachState(state, fragmentMap) {
     if (state.fragments) throw 'When using attachState, the given state may not have a member named \"fragments\"';
     const mergedState = _.cloneDeep(state);
     mergedState.fragments = {};
@@ -26,7 +26,7 @@ export const attachState = (state, fragmentMap) => {
  * @param fragments A map of all fragments attached to the redux reducer
  * @param overwrite Defaults false. If true, runHandlers will not call fragment's handlers if a match action.type exists
  */
-export const executeHandlers = (state, action, handlers, fragments) => {
+export function executeHandlers(state, action, handlers, fragments) {
     if (!action.type) throw 'Action must have type';
     return executeFragmentHandlers(state, action, handlers, fragments);
 };
@@ -34,7 +34,7 @@ export const executeHandlers = (state, action, handlers, fragments) => {
 // TODO copy param
 // TODO overwrite param
 // TODO there's too many clones here
-const executeFragmentHandlers = (state, returnState, action, handlers, fragments) => {
+function executeFragmentHandlers(state, returnState, action, handlers, fragments) {
     // First check non-fragment handlers for a match.
     if (handlers[action.type]) {
         return handlers[action.type](_.cloneDeep(state), action.payload);
@@ -53,7 +53,7 @@ const executeFragmentHandlers = (state, returnState, action, handlers, fragments
     return returnState;
 };
 
-export const combineFragmentsHandlers = (handlers, fragments) => {
+export function combineFragmentsHandlers(handlers, fragments) {
   handlers.fragments = {};
   _.forIn(fragments, (v, k) => {
     if (!v.handlers) throw 'Fragment must have handlers or at least an empty object';

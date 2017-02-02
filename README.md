@@ -1,4 +1,6 @@
 # redux-fragments
+WORK IN PROGRESS
+
 This is a small helper library to assist developers in writing their UI with a fragment architecture.
 
 Please checkout my blog <insert link> for a better explanation of redux-fragments!
@@ -175,3 +177,4 @@ With fragments, you can test each one independently from the rest of the code.
  * addFragmentsHandlers function
  * more test cases
  * loader isn't setup for sampleFragments
+ * remove lodash
