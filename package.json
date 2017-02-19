@@ -1,7 +1,7 @@
 {
   "name": "redux-fragments",
   "description": "A methodalogy for setting up for react/redux code for optimum usability.",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "author": "Jonathan Sweetman <sweetmanjon@gmail.com>",
   "main": "dist/fragment-helper.js",
   "keywords": [

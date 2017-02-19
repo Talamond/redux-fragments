@@ -4,40 +4,59 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  output: {
-    filename: 'js/[name].js',
-    path: path.resolve(__dirname, 'build/client'),
-    publicPath: '/'
+  // TODO hmmm webpack 2 needs this, karma doesn't, error message results
+  entry: {
+    script: path.resolve(__dirname, "./entry.js")
   },
-  resolve: {
-    modules: [
-      path.join(__dirname, 'src'),
-      'node_modules'
-    ],
-    extensions: ['.js']
-  },
+
   module: {
-    preloaders: [
+    rules: [
       {
         test: /\.js$/,
-        include: [/src/, /tests/],
-        exclude: /(node_modules)/,
-        loader: 'babel'
-      },
-      {
-        test: /\.js?$/,
-        include: /src/,
-        exclude: /node_modules/,
-        loader: 'babel-istanbul'
-      }
-    ],
-    loaders: [
-      {
-        test: /\.js?$/,
-        include: [path.resolve(__dirname, './src'), path.resolve(__dirname, './tests/sampleFragments')],
-        exclude: path.resolve(__dirname, './tests'),
-        loader: 'babel'
+        loader: "babel-loader",
+        exclude: /(\/node_modules\/|test\.js$)/,
+      }, {
+        test: /\.json$/,
+        loader: 'json-loader'
+      }, {
+        test: /\.scss$/,
+        include: [
+          path.resolve(__dirname, 'src')
+        ],
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [ require('autoprefixer')({ browsers: ['last 2 versions'] }) ]
+            }
+          },
+          { loader: 'sass-loader', query: { outputStyle: 'expanded' } }
+        ]
+      }, {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader!postcss-loader'
       }
     ]
-  }
+  },
+
+  output: {
+    path: "./dist",
+    filename: "script.js",
+    pathinfo: true
+  },
+
+  resolve: {
+    extensions: [".js"],
+    modules: [
+      __dirname,
+      path.resolve(__dirname, "./node_modules")
+    ]
+  },
+  externals: {
+    'react/lib/ExecutionEnvironment': true,
+    'react/addons': true,
+    'react/lib/ReactContext': 'window'
+  },
 };

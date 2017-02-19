@@ -293,33 +293,6 @@ describe('FragmentHandler executeHandlers', () => {
     };
   });
 
-//   export const executeHandlers = (state, action, handlers, fragments) => {
-//     if (!action.type) throw 'Action must have type';
-//     return executeFragmentHandlers(state, action, handlers, fragments);
-//   };
-//
-// // TODO copy param
-// // TODO overwrite param
-// // TODO there's too many clones here
-//   const executeFragmentHandlers = (state, returnState, action, handlers, fragments) => {
-//     // First check non-fragment handlers for a match.
-//     if (handlers[action.type]) {
-//       return handlers[action.type](_.cloneDeep(state), action.payload);
-//     }
-//     // Now check all fragments recursively for matches
-//     _.forIn(fragments, (v, k) => {
-//       if (!v.handlers) throw 'Fragment ' + k + ' must have handlers';
-//       const subState = _.cloneDeep(state.fragments[k]);
-//       const newSubState = executeFragmentHandlers(subState, null, action, state.fragments[k].fragments);
-//       if (newSubState) {
-//         const newState = _.cloneDeep(state);
-//         newState.fragments[k] = newSubState;
-//         returnState = newState;
-//       }
-//     });
-//     return returnState;
-//   };
-
   it('executeHandlers - action missing type', () => {
     const throwException = () => {
       executeHandlers(exState, {payload: {value: 'test'}},exHandlers ,exFragments);

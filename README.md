@@ -174,7 +174,8 @@ With fragments, you can test each one independently from the rest of the code.
  * proofread
  * override function
  * plug this into synposis
- * addFragmentsHandlers function
  * more test cases
  * loader isn't setup for sampleFragments
  * remove lodash
+ * immutablejs
+ * recursive attachState

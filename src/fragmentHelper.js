@@ -44,7 +44,7 @@ function executeFragmentHandlers(state, returnState, action, handlers) {
         if (!handlers.fragments[fragment]) throw 'Fragment must have handlers';
         const newSubState = executeFragmentHandlers(state.fragments[fragment], null, action, handlers.fragments[fragment]);
         if (newSubState) {
-            const newState = {...state};
+            const newState = _.cloneDeep(state);
             newState.fragments[fragment] = newSubState;
             returnState = newState;
         }
