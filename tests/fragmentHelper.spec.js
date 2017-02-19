@@ -1,9 +1,9 @@
 import {attachState, executeHandlers} from '../src/fragmentHelper.js';
 import {initialState as stateA, createHandlers as handlersA} from './sampleFragments/sampleALevel1.js';
 import {initialState as stateB, createHandlers as handlersB} from './sampleFragments/sampleBLevel1.js';
-import {initialState as stateC, createHandlers as handlersC} from './sampleFragments/sampleCLevel1.js';
+import {getInitialState as getStateC, createHandlers as handlersC} from './sampleFragments/sampleCLevel1.js';
 import {initialState as stateD, createHandlers as handlersD} from './sampleFragments/sampleDLevel2.js';
-import {initialState as stateE, createHandlers as handlersE} from './sampleFragments/sampleELevel2.js';
+import {getInitialState as getStateE, createHandlers as handlersE} from './sampleFragments/sampleELevel2.js';
 import {initialState as stateF, createHandlers as handlersF} from './sampleFragments/sampleFLevel3.js';
 
 describe('FragmentHandler attachState', () => {
@@ -220,10 +220,6 @@ describe('FragmentHandler executeHandlers', () => {
   };
 
   beforeEach(() => {
-    exState = {
-      lastAction: '',
-      testValue: ''
-    };
     exHandlers = {
       A: (newState, payload) => {
         newState.lastAction = 'A';
@@ -260,7 +256,7 @@ describe('FragmentHandler executeHandlers', () => {
       },
       c: {
         state: {
-          ...stateC
+          ...getStateC()
         },
         handlers: {
           ...handlersC()
@@ -276,7 +272,7 @@ describe('FragmentHandler executeHandlers', () => {
       },
       e: {
         state: {
-          ...stateE
+          ...getStateE()
         },
         handlers: {
           ...handlersE()
@@ -291,6 +287,11 @@ describe('FragmentHandler executeHandlers', () => {
         }
       }
     };
+
+    exState = attachState({
+      lastAction: '',
+      testValue: ''
+    }, exFragments);
   });
 
   it('executeHandlers - action missing type', () => {
@@ -313,6 +314,7 @@ describe('FragmentHandler executeHandlers', () => {
 
   it('executeHandlers - empty handlers, match fragment', () => {
     // ActionA should only match sampleA
+    debugger;
     const resultState = executeHandlers(exState, actionA, {}, exFragments);
     expect(resultState.lastAction).toBe('');
     expect(resultState.fragments.a.lastActionA).toBe('A');

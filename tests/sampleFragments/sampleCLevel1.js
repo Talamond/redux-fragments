@@ -1,6 +1,6 @@
-import {combineFragmentsHandlers} from '../../src/fragmentHelper.js';
+import {combineFragmentsHandlers, attachState} from '../../src/fragmentHelper.js';
 import {initialState as stateD, createHandlers as handlersD} from './sampleDLevel2.js';
-import {initialState as stateE, createHandlers as handlersE} from './sampleELevel2.js';
+import {getInitialState as getStateE, createHandlers as handlersE} from './sampleELevel2.js';
 
 const fragments = {
   d: {
@@ -13,7 +13,7 @@ const fragments = {
   },
   e: {
     state: {
-      ...stateE
+      ...getStateE()
     },
     handlers: {
       ...handlersE()
@@ -21,9 +21,13 @@ const fragments = {
   }
 };
 
-export const initialState = {
+const iState = {
   lastActionC: '',
   testValueC: ''
+};
+
+export const getInitialState = () => {
+  return attachState(iState, fragments);
 };
 
 /* eslint-disable no-param-reassign */

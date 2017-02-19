@@ -42,7 +42,7 @@ function executeFragmentHandlers(state, returnState, action, handlers) {
     // Now check all fragments recursively for matches
     for (let fragment in handlers.fragments) {
         if (!handlers.fragments[fragment]) throw 'Fragment must have handlers';
-        const newSubState = executeFragmentHandlers(state.fragments[fragment], null, action, handlers.fragments[fragment]);
+        const newSubState = executeFragmentHandlers(state.fragments[fragment], state.fragments[fragment], action, handlers.fragments[fragment]);
         if (newSubState) {
             const newState = _.cloneDeep(state);
             newState.fragments[fragment] = newSubState;

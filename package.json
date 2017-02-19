@@ -23,7 +23,8 @@
     "start": "webpack-dashboard -c cyan -- node server.js",
     "prebuild": "npm run clean:build",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.production.js --progress",
-    "test": "karma start --single-run --no-auto-watch karma.config.js"
+    "test": "karma start --single-run --no-auto-watch karma.config.js",
+    "test:debug": "karma start karma.config.js --browsers=Chrome --single-run=false --debug"
   },
   "devDependencies": {
     "add-asset-html-webpack-plugin": "1.0.2",
